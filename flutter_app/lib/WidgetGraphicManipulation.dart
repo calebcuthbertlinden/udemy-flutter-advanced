@@ -1,32 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Advanced - Udemy'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class GrapgicsManipulation extends StatefulWidget {
+  GrapgicsManipulation({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _GrapgicsManipulationState createState() => _GrapgicsManipulationState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GrapgicsManipulationState extends State<GrapgicsManipulation> {
   int _counter = 0;
   bool visible = false;
   double value = 0.0;

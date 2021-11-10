@@ -1,58 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Advanced - Udemy'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+class Animations extends StatefulWidget {
+  Animations({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _AnimationsState createState() => _AnimationsState();
 }
 
-class AnimatedLogo extends AnimatedWidget {
-
-  AnimatedLogo(Key key, Animation<double> animation) : super(key: key, listenable: animation);
-
-  static final opacityTween = Tween<double>(begin: 0.1, end: 1.0);
-  static final sizeTween = Tween<double>(begin: 0.0, end: 300.0);
-  static final rotateTween = Tween<double>(begin: 0.0, end: 12.0);
-
-  @override
-  Widget build(BuildContext context) {
-    final Animation<double> animation =  listenable as Animation<double>;
-    return Center(
-      child: Transform.rotate(angle: rotateTween.evaluate(animation),
-      child: Opacity(opacity: opacityTween.evaluate(animation),
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
-        height: sizeTween.evaluate(animation),
-        width: sizeTween.evaluate(animation),
-        child: FlutterLogo()
-      ),))
-    );
-  }
-
-}
-
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+class _AnimationsState extends State<Animations> with SingleTickerProviderStateMixin{
 
   late Animation<double> animation;
   late Animation<double> curvedAnimation;
@@ -111,4 +68,30 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
     );
   }
+}
+
+
+class AnimatedLogo extends AnimatedWidget {
+
+  AnimatedLogo(Key key, Animation<double> animation) : super(key: key, listenable: animation);
+
+  static final opacityTween = Tween<double>(begin: 0.1, end: 1.0);
+  static final sizeTween = Tween<double>(begin: 0.0, end: 300.0);
+  static final rotateTween = Tween<double>(begin: 0.0, end: 12.0);
+
+  @override
+  Widget build(BuildContext context) {
+    final Animation<double> animation =  listenable as Animation<double>;
+    return Center(
+        child: Transform.rotate(angle: rotateTween.evaluate(animation),
+            child: Opacity(opacity: opacityTween.evaluate(animation),
+              child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  height: sizeTween.evaluate(animation),
+                  width: sizeTween.evaluate(animation),
+                  child: FlutterLogo()
+              ),))
+    );
+  }
+
 }
