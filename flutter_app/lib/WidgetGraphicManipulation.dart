@@ -48,7 +48,9 @@ class _GrapgicsManipulationState extends State<GrapgicsManipulation> {
         title: Text(widget.title),
       ),
       body:
+
         // 1.3 - Opacity
+
         // Center(
         //   child: Column(
         //     mainAxisAlignment: MainAxisAlignment.center,
@@ -69,6 +71,7 @@ class _GrapgicsManipulationState extends State<GrapgicsManipulation> {
       //------------------------------------------------------------------------------------
 
         // 1.4 - Rotate box
+
         // Container(
         //   padding: EdgeInsets.all(32),
         //   child: Center(
@@ -85,6 +88,7 @@ class _GrapgicsManipulationState extends State<GrapgicsManipulation> {
       //------------------------------------------------------------------------------------
 
         // 1.5 - Border Decoration
+
         // Container(
         //   padding: EdgeInsets.all(32),
         //   child: Center(

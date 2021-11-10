@@ -53,7 +53,9 @@ class _MapsState extends State<Maps> {
   List<Widget> makeButtons() {
     List<Widget> list = <Widget>[];
     for (int i = 0; i < coords.length; i++) {
-      list.add(RaisedButton(onPressed: () => showCoord(i), child: Text(coords.keys.elementAt(i))));
+      list.add(Container(padding: EdgeInsets.all(8), child:
+          ElevatedButton(onPressed: () => showCoord(i), child: Text(coords.keys.elementAt(i)))
+      ));
     }
     return list;
   }
@@ -72,11 +74,12 @@ class _MapsState extends State<Maps> {
       ),
       body:
         Container(
-         padding: EdgeInsets.all(32.0),
+         padding: EdgeInsets.all(8.0),
           child: Center(
             child: Column(
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: makeButtons()
                 ),
                 Flexible(
