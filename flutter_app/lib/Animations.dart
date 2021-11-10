@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/animation.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,10 +27,29 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+
+  Animation<double>? animation;
+  AnimationController? controller;
 
   @override
   void initState() {
+    super.initState();
+    controller = AnimationController(duration: const Duration(milliseconds: 5000), vsync: this);
+    animation = new Tween(begin: 0.0, end: 400.0).animate(controller!);
+    animation!.addListener(() {
+      setState(() {
+        // todo
+      });
+    });
+
+    controller!.forward();
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
   }
 
   @override
@@ -40,13 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body:
       Container(
+        height: animation!.value,
+        width: animation!.value,
         padding: EdgeInsets.all(32),
         child: Center(
-          child: Column(
-            children: <Widget>[
-              Text('Hello world',style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
-              ]
-          )
+          child: FlutterLogo(size: 300)
         )
       ),
     );
