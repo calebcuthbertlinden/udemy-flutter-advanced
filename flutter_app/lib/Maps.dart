@@ -12,9 +12,50 @@ class Maps extends StatefulWidget {
 
 class _MapsState extends State<Maps> {
 
+  late MapController mapController;
+  late Map<String, LatLng> coords;
+  late List<Marker> markers;
+  late List<LatLng> points;
+
   @override
   void initState() {
     super.initState();
+
+    mapController = MapController();
+
+    coords = Map<String, LatLng>();
+    coords.putIfAbsent("Chicago", () => LatLng(41.8781, -87.6298));
+    coords.putIfAbsent("Detroit", () => LatLng(42.3314, -83.6458));
+    coords.putIfAbsent("Lamsing", () => LatLng(42.7325, -84.5555));
+
+    points = <LatLng>[];
+    points.add(LatLng(41.8781, -87.6298));
+    points.add(LatLng(42.3314, -83.6458));
+    points.add(LatLng(42.7325, -84.5555));
+
+    markers = <Marker>[];
+    for (int i = 0; i < coords.length; i++) {
+      markers.add(
+        Marker(
+          width: 80.0,
+          height: 80.0,
+          point: coords.values.elementAt(i),
+            builder: (ctx) => Icon(Icons.pin_drop, color: Colors.red)
+        )
+      );
+    }
+  }
+
+  void showCoord(int index) {
+    mapController.move(coords.values.elementAt(index), 10.0);
+  }
+
+  List<Widget> makeButtons() {
+    List<Widget> list = <Widget>[];
+    for (int i = 0; i < coords.length; i++) {
+      list.add(RaisedButton(onPressed: () => showCoord(i), child: Text(coords.keys.elementAt(i))));
+    }
+    return list;
   }
 
   @override
@@ -24,15 +65,6 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-
-    var markers = <Marker> [
-      Marker(
-        width: 80.0,
-        height: 80.0,
-        point: LatLng(41.8781, -87.6298),
-        builder: (ctx) => Icon(Icons.pin_drop, color: Colors.red)
-      )
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -44,8 +76,12 @@ class _MapsState extends State<Maps> {
           child: Center(
             child: Column(
               children: <Widget>[
+                Row(
+                  children: makeButtons()
+                ),
                 Flexible(
                     child: FlutterMap(
+                      mapController: mapController,
                       options: MapOptions(
                         center: LatLng(41.8781, -87.6298),
                         zoom: 10.0
@@ -55,7 +91,16 @@ class _MapsState extends State<Maps> {
                           urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                           subdomains: ['a', 'b', 'c']
                         ),
-                        MarkerLayerOptions(markers: markers)
+                        MarkerLayerOptions(markers: markers),
+                        PolylineLayerOptions(
+                          polylines: [
+                            Polyline(
+                              points: points,
+                              strokeWidth: 4.0,
+                              color: Colors.purple
+                            )
+                          ]
+                        )
                       ],
                     )
                 )
