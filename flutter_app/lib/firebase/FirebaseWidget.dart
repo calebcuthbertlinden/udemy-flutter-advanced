@@ -27,7 +27,7 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
   }
 
   void signInAnonymous() async {
-    UserCredential user = await auth.signInAnonymously();
+    await auth.signInAnonymously();
   }
 
   void signOut() async {
@@ -35,6 +35,16 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
     setState(() {
       status = "Signed out";
     });
+  }
+
+  void signInGoogle() async {
+    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    await auth.signInWithCredential(credential);
   }
 
   @override
@@ -67,6 +77,10 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
                   setState(() {
                     status = "Signed out";
                   });
+                } else if (!user.isAnonymous) {
+                  setState(() {
+                    status = "Signed in with Google";
+                  });
                 } else {
                   setState(() {
                     status = "Signed in anonymously";
@@ -74,7 +88,8 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
                 }
               });
 
-              return Column(
+              return Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(status,
                         style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
@@ -83,6 +98,7 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
                         children: <Widget> [
                           ElevatedButton(onPressed: signOut, child: Text("Sign out"),),
                           ElevatedButton(onPressed: signInAnonymous, child: Text("Sign in"),),
+                          ElevatedButton(onPressed: signInGoogle, child: Text("Sign in with Google"),),
                         ])
                   ]
               );
