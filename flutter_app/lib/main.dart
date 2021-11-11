@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'Maps.dart';
 import 'PhoneIntegration.dart';
+import 'firebase/FirebaseWidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PhoneIntegration(title: 'Flutter Advanced - Udemy'),
+      home: FirebaseWidget(title: 'Flutter Advanced - Udemy'),
     );
   }
 }

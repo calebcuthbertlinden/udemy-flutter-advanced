@@ -36,56 +36,54 @@ class _PhoneIntegrationState extends State<PhoneIntegration> {
       throw "Could not launch $urlString";
     }
   }
+  //
+  // requestPermission() async {
+  //   final res = await SimplePermissions.requestPermission(permission);
+  //   print("Permission result is ${res.toString()}");
+  //   setState(() {
+  //     status = '${permission.toString()} = ${res.toString()}';
+  //   });
+  // }
+  //
+  // checkPermission() async {
+  //   final res = await SimplePermissions.checkPermission(permission);
+  //   print("Permission result it ${res.toString()}");
+  //   setState(() {
+  //     status = "${permission.toString()} = ${res.toString()}";
+  //   });
+  // }
+  //
+  // getPermissionStatus() async {
+  //   final res = await SimplePermissions.getPermissionStatus(permission);
+  //   print("Permission result it ${res.toString()}");
+  //   setState(() {
+  //     status = "${permission.toString()} = ${res.toString()}";
+  //   });
+  // }
+  //
+  // onDropDownChanged(Permission permission) {
+  //   setState(() {
+  //     this.permission = permission;
+  //     status = 'Click a button below';
+  //   });
+  //   print(permission);
+  // }
+  //
+  // List<DropdownMenuItem<Permission>> getDropDownItems() {
+  //   List<DropdownMenuItem<Permission>> items = <DropdownMenuItem<Permission>>[];
+  //   Permission.values.forEach((element) {
+  //     var item = DropdownMenuItem(child: Text(getPermissionString(permission)), value: permission);
+  //     items.add(item);
+  //   });
+  //   return items;
+  // }
 
-  requestPermission() async {
-    final res = await SimplePermissions.requestPermission(permission);
-    print("Permission result is ${res.toString()}");
-    setState(() {
-      status = '${permission.toString()} = ${res.toString()}';
-    });
-  }
-
-  checkPermission() async {
-    final res = await SimplePermissions.checkPermission(permission);
-    print("Permission result it ${res.toString()}");
-    setState(() {
-      status = "${permission.toString()} = ${res.toString()}";
-    });
-  }
-
-  getPermissionStatus() async {
-    final res = await SimplePermissions.getPermissionStatus(permission);
-    print("Permission result it ${res.toString()}");
-    setState(() {
-      status = "${permission.toString()} = ${res.toString()}";
-    });
-  }
-
-  onDropDownChanged(Permission permission) {
-    setState(() {
-      this.permission = permission;
-      status = 'Click a button below';
-    });
-    print(permission);
-  }
-
-  List<DropdownMenuItem<Permission>> getDropDownItems() {
-    List<DropdownMenuItem<Permission>> items = <DropdownMenuItem<Permission>>[];
-    Permission.values.forEach((element) {
-      var item = DropdownMenuItem(child: Text(getPermissionString(permission)), value: permission);
-      items.add(item);
-    });
-    return items;
-  }
-
-  late String status;
-  late Permission permission;
+  // late String status;
+  // late Permission permission;
 
   @override
   void initState() {
     super.initState();
-    status = 'Select an item';
-    print(Permission.values);
   }
 
   @override
@@ -106,12 +104,13 @@ class _PhoneIntegrationState extends State<PhoneIntegration> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    // .19
+
+                    // .19 - Phone integration
                     // ElevatedButton(onPressed: showUrl, child: Text("Url")),
                     // ElevatedButton(onPressed: showEmail, child: Text("Email")),
                     // ElevatedButton(onPressed: showSMS, child: Text("SMS")),
                     // ElevatedButton(onPressed: showTelephone, child: Text("Telephone")),
-                    // .20
+                    // .20 - Permissions
                     // Text(status),
                     // DropdownButton(items: getDropDownItems(), value: permission, onChanged: onDropDownChanged(permission),),
                     // ElevatedButton(onPressed: checkPermission, child: Text("Check permission")),
