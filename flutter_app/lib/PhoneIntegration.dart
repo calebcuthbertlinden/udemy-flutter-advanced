@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:async';
+// import 'package:simple_permissions/simple_permissions.dart';
 
 class PhoneIntegration extends StatefulWidget {
   PhoneIntegration({Key? key, required this.title}) : super(key: key);
@@ -36,9 +37,55 @@ class _PhoneIntegrationState extends State<PhoneIntegration> {
     }
   }
 
+  requestPermission() async {
+    final res = await SimplePermissions.requestPermission(permission);
+    print("Permission result is ${res.toString()}");
+    setState(() {
+      status = '${permission.toString()} = ${res.toString()}';
+    });
+  }
+
+  checkPermission() async {
+    final res = await SimplePermissions.checkPermission(permission);
+    print("Permission result it ${res.toString()}");
+    setState(() {
+      status = "${permission.toString()} = ${res.toString()}";
+    });
+  }
+
+  getPermissionStatus() async {
+    final res = await SimplePermissions.getPermissionStatus(permission);
+    print("Permission result it ${res.toString()}");
+    setState(() {
+      status = "${permission.toString()} = ${res.toString()}";
+    });
+  }
+
+  onDropDownChanged(Permission permission) {
+    setState(() {
+      this.permission = permission;
+      status = 'Click a button below';
+    });
+    print(permission);
+  }
+
+  List<DropdownMenuItem<Permission>> getDropDownItems() {
+    List<DropdownMenuItem<Permission>> items = <DropdownMenuItem<Permission>>[];
+    Permission.values.forEach((element) {
+      var item = DropdownMenuItem(child: Text(getPermissionString(permission)), value: permission);
+      items.add(item);
+    });
+    return items;
+  }
+
+  late String status;
+  late Permission permission;
+
   @override
   void initState() {
     super.initState();
+    status = 'Select an item';
+    print(Permission.values);
   }
 
   @override
@@ -59,10 +106,19 @@ class _PhoneIntegrationState extends State<PhoneIntegration> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ElevatedButton(onPressed: showUrl, child: Text("Url")),
-                    ElevatedButton(onPressed: showEmail, child: Text("Email")),
-                    ElevatedButton(onPressed: showSMS, child: Text("SMS")),
-                    ElevatedButton(onPressed: showTelephone, child: Text("Telephone")),
+                    // .19
+                    // ElevatedButton(onPressed: showUrl, child: Text("Url")),
+                    // ElevatedButton(onPressed: showEmail, child: Text("Email")),
+                    // ElevatedButton(onPressed: showSMS, child: Text("SMS")),
+                    // ElevatedButton(onPressed: showTelephone, child: Text("Telephone")),
+                    // .20
+                    // Text(status),
+                    // DropdownButton(items: getDropDownItems(), value: permission, onChanged: onDropDownChanged(permission),),
+                    // ElevatedButton(onPressed: checkPermission, child: Text("Check permission")),
+                    // ElevatedButton(onPressed: requestPermission, child: Text("Request permission")),
+                    // ElevatedButton(onPressed: getPermissionStatus, child: Text("Get status")),
+                    // ElevatedButton(onPressed: SimplePermissions.openSettings, child: Text("Open settings")),
+
                   ]))),
     );
   }
