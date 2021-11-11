@@ -1,13 +1,8 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:async';
-import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
-
-final FirebaseAuth auth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
+import 'Auth.dart';
 
 class FirebaseWidget extends StatefulWidget {
   FirebaseWidget({Key? key, required this.title}) : super(key: key);
@@ -26,25 +21,12 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
   void initState() {
   }
 
-  void signInAnonymous() async {
-    await auth.signInAnonymously();
+  void upload() async {
+
   }
 
-  void signOut() async {
-    await auth.signOut();
-    setState(() {
-      status = "Signed out";
-    });
-  }
+  void download() async {
 
-  void signInGoogle() async {
-    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    await auth.signInWithCredential(credential);
   }
 
   @override
@@ -70,8 +52,7 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
 
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
-
-              auth.authStateChanges()
+              initialiseStateListener()
                   .listen((User? user) {
                 if (user == null) {
                   setState(() {
@@ -99,6 +80,12 @@ class _FirebaseWidgetState extends State<FirebaseWidget> {
                           ElevatedButton(onPressed: signOut, child: Text("Sign out"),),
                           ElevatedButton(onPressed: signInAnonymous, child: Text("Sign in"),),
                           ElevatedButton(onPressed: signInGoogle, child: Text("Sign in with Google"),),
+                        ]),
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget> [
+                          ElevatedButton(onPressed: null, child: Text("Upload"),),
+                          ElevatedButton(onPressed: null, child: Text("Download"),),
                         ])
                   ]
               );
