@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'Animations.dart';
 import 'Maps.dart';
+import 'PhoneIntegration.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Maps(title: 'Flutter Advanced - Udemy'),
+      home: PhoneIntegration(title: 'Flutter Advanced - Udemy'),
     );
   }
 }
